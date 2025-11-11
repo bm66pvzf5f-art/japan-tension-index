@@ -53,17 +53,9 @@ def update_weights(event_occurred: bool):
 
 # -------------------------- DATA FETCH --------------------------
 @st.cache_data(ttl=3600)  # refresh hourly
-def fetch_quakes():
-    url = ("https://earthquake.usgs.gov/fdsnws/event/1/query?"
-           "format=geojson&starttime={}&endtime={}&minmagnitude=4&country=JP"
-           .format((datetime.utcnow()-timedelta(days=7)).strftime('%Y-%m-%d'),
-                   datetime.utcnow().strftime('%Y-%m-%d')))
-    r = requests.get(url)
+File ".../japan_alert.py", line 62, in fetch_quakes
     data = r.json()
-    count = len(data.get("features", []))
-    # rough b-value (needs real catalog – placeholder)
-    b_val = 1.2 if count > 30 else 1.5
-    return count, b_val
+requests.exceptions.JSONDecodeError
 
 @st.cache_data(ttl=3600)
 def fetch_solar():
